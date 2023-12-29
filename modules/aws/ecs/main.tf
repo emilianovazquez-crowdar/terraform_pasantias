@@ -96,7 +96,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
  container_definitions = jsonencode([
    {
      name      = "test1"
-     image     = "403811705992.dkr.ecr.us-east-2.amazonaws.com/test"
+     image     = "docker/getting-started:latest"
      cpu       = 256
      memory    = 512
      essential = true
@@ -142,7 +142,7 @@ resource "aws_ecs_service" "ecs_service" {
    container_port   = 80
  }
 
- depends_on = [data.terraform_remote_state.asg]
+ #depends_on = [data.terraform_remote_state.outputs.tg]
 }
 
 output "ecs_cluster_id" {

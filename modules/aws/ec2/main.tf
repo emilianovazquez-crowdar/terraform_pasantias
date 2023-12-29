@@ -31,8 +31,8 @@ data terraform_remote_state "vpc"{
 
 resource "aws_launch_template" "ecs_lt" {
  name_prefix   = "ecs-template"
- image_id      = "ami-0b59bfac6be064b78"
- instance_type = "t3.micro"
+ image_id      = "ami-0e39dd66fdd5606ad"
+ instance_type = "t3.xlarge"
 
  key_name               = "ec2ecsglog"
  vpc_security_group_ids = [data.terraform_remote_state.vpc.outputs.security_group_id]
@@ -72,16 +72,6 @@ resource "aws_lb" "ecs_alb" {
  }
 }
 
-resource "aws_lb_listener" "ecs_alb_listener" {
- load_balancer_arn = aws_lb.ecs_alb.arn
- port              = 80
- protocol          = "HTTP"
-
- default_action {
-   type             = "forward"
-   target_group_arn = aws_lb_target_group.ecs_tg.arn
- }
-}
 
 resource "aws_lb_target_group" "ecs_tg" {
  name        = "ecs-target-group"
@@ -92,5 +82,16 @@ resource "aws_lb_target_group" "ecs_tg" {
 
  health_check {
    path = "/"
+ }
+}
+
+resource "aws_lb_listener" "ecs_alb_listener" {
+ load_balancer_arn = aws_lb.ecs_alb.arn
+ port              = 80
+ protocol          = "HTTP"
+
+ default_action {
+   type             = "forward"
+   target_group_arn = aws_lb_target_group.ecs_tg.arn
  }
 }

@@ -1,7 +1,7 @@
 # ecs/variables.tf
 
 variable "ecs_cluster_name" {
-  default = "MyECSCluster"
+  default = "my-ecs-cluster"
 }
 
 variable "ecs_service1_task_definition" {

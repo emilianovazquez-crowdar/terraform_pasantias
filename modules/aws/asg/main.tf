@@ -40,7 +40,7 @@ data terraform_remote_state "ec2"{
 resource "aws_autoscaling_group" "ecs_asg" {
  vpc_zone_identifier = [data.terraform_remote_state.vpc.outputs.subnet_id_a]
  desired_capacity    = 1
- max_size            = 3
+ max_size            = 1
  min_size            = 1
 
  launch_template {

@@ -5,3 +5,7 @@ output "ecs_lt_id" {
 output "tg_arn" {
   value = aws_lb_target_group.ecs_tg.arn
 }
+
+output "tg"{
+  value = aws_lb_target_group.ecs_tg
+}
